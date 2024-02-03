@@ -5,9 +5,9 @@ While the Large Language Models (LLMs) possess impressive capabilities, they hav
 
 A workaround approach is to present the required information to the model and leverage its reasoning capability to find/extract the answer. Furthermore, it is possible to present the top-matched results a search engine returns as the context for a user’s query.
 
-This lesson will explore the idea of finding the best articles from the Internet as the context for a chatbot to find the correct answer. We will use LangChain’s integration with Google Search API and the Newspaper library to extract the stories from search results. This is followed by choosing and using the most relevant options in the prompt.
+This repo will explore the idea of finding the best articles from the Internet as the context for a chatbot to find the correct answer. We will use LangChain’s integration with Google Search API and the Newspaper library to extract the stories from search results. This is followed by choosing and using the most relevant options in the prompt.
 
-Notice that the same pipeline could be done with the Bing API, but we’ll use the Google Search API in this project because it is used in other lessons of this course, thus avoiding creating several keys for the same functionality. Please refer to the following [tutorial](https://levelup.gitconnected.com/api-tutorial-how-to-use-bing-web-search-api-in-python-4165d5592a7e) (or [Bing Web Search API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api) for direct access) on obtaining the Bing Subscription Key and using the LangChain Bing search [wrapper](https://python.langchain.com/docs/integrations/tools/bing_search?highlight=Bing)https://python.langchain.com/docs/integrations/tools/bing_search?highlight=Bing.
+Notice that the same pipeline could be done with the Bing API, but we’ll use the Google Search API in this project because it is used in other repos of this course, thus avoiding creating several keys for the same functionality. Please refer to the following [tutorial](https://levelup.gitconnected.com/api-tutorial-how-to-use-bing-web-search-api-in-python-4165d5592a7e) (or [Bing Web Search API](https://www.microsoft.com/en-us/bing/apis/bing-web-search-api) for direct access) on obtaining the Bing Subscription Key and using the LangChain Bing search [wrapper](https://python.langchain.com/docs/integrations/tools/bing_search?highlight=Bing)https://python.langchain.com/docs/integrations/tools/bing_search?highlight=Bing.
 
 What we are going to do is explained in the following diagram.
 
@@ -16,13 +16,13 @@ What we are going to do is explained in the following diagram.
 The user query is used to extract relevant articles using a search engine (e.g. Bing or Google Search), which are then split into chunks. We then compute the embeddings of each chunk, rank them by cosine similarity with respect to the embedding of the query, and put the most relevant chunks into a prompt to generate the final answer, while also keeping track of the sources.
 
 ## Ask Trending Questions
-Let’s start this lesson by seeing an example. The following piece must be familiar by now. It uses the OpenAI GPT-3.5-turbo model to create an assistant to answer questions. We will ask the model to name the latest Fast & Furious movie, released recently. Therefore, the model couldn’t have seen the answer during the training. Remember to install the required packages with the following command: pip install langchain deeplake openai tiktoken.
+Let’s start this repo by seeing an example. The following piece must be familiar by now. It uses the OpenAI GPT-3.5-turbo model to create an assistant to answer questions. We will ask the model to name the latest Fast & Furious movie, released recently. Therefore, the model couldn’t have seen the answer during the training. Remember to install the required packages with the following command: pip install langchain deeplake openai tiktoken.
 
 ```
 The user query is used to extract relevant articles using a search engine (e.g. Bing or Google Search), which are then split into chunks. We then compute the embeddings of each chunk, rank them by cosine similarity with respect to the embedding of the query, and put the most relevant chunks into a prompt to generate the final answer, while also keeping track of the sources.
 
 Ask Trending Questions
-Let’s start this lesson by seeing an example. The following piece must be familiar by now. It uses the OpenAI GPT-3.5-turbo model to create an assistant to answer questions. We will ask the model to name the latest Fast & Furious movie, released recently. Therefore, the model couldn’t have seen the answer during the training. Remember to install the required packages with the following command: pip install langchain deeplake openai tiktoken.
+Let’s start this repo by seeing an example. The following piece must be familiar by now. It uses the OpenAI GPT-3.5-turbo model to create an assistant to answer questions. We will ask the model to name the latest Fast & Furious movie, released recently. Therefore, the model couldn’t have seen the answer during the training. Remember to install the required packages with the following command: pip install langchain deeplake openai tiktoken.
 ```
 
 ```
@@ -33,7 +33,7 @@ The latest Fast and Furious movie is Fast & Furious 9, which is set to be releas
 The response shows that the model references the previous movie title as the answer. This is because the new movie (10th sequel) has yet to be released in its fictional universe! Let’s fix the problem.
 
 ## Google API
-Before we start, let’s set up the API Key and a custom search engine. If you don’t have the keys from the previous lesson, head to the [Google Cloud console](https://console.cloud.google.com/apis/credentials) and generate the key by pressing the CREATE CREDENTIALS buttons from the top and choosing API KEY. Then, head to the [Programmable Search Engine](https://programmablesearchengine.google.com/controlpanel/create) dashboard and remember to select the “Search the entire web” option. The Search engine ID will be visible in the details. You might also need to enable the “Custom Search API” service under the Enable APIs and services. (You will receive the instruction from API if required) Now we can set the environment variables for both Google and OpenAI APIs.
+Before we start, let’s set up the API Key and a custom search engine. If you don’t have the keys from the previous repo, head to the [Google Cloud console](https://console.cloud.google.com/apis/credentials) and generate the key by pressing the CREATE CREDENTIALS buttons from the top and choosing API KEY. Then, head to the [Programmable Search Engine](https://programmablesearchengine.google.com/controlpanel/create) dashboard and remember to select the “Search the entire web” option. The Search engine ID will be visible in the details. You might also need to enable the “Custom Search API” service under the Enable APIs and services. (You will receive the instruction from API if required) Now we can set the environment variables for both Google and OpenAI APIs.
 
 ```
 import os
