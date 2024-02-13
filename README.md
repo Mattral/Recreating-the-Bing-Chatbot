@@ -225,4 +225,3 @@ Sources: https://www.radiotimes.com/movies/fast-and-furious-10-release-date/, ht
 ```
 
 The use of search results helped the model find the correct answer, even though it never saw it before during the training stage. The question and answering chain with source also provides information regarding the sources utilized by the model to derive the answer.
-
