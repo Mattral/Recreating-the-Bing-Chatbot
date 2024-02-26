@@ -118,6 +118,7 @@ https://www.cbsnews.com/losangeles/news/looming-release-of-latest-fast-and-furio
 
 Now, we use the results variable’s link key to download and parse the contents. The newspaper library takes care of everything. However, it might be unable to capture some contents in certain situations, like anti-bot mechanisms or having a file as a result.
 
+
 ```
 
 import newspaper
